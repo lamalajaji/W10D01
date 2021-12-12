@@ -1,12 +1,19 @@
-
+import Link from "next/link";
 function Home({ posts }) {
   return (
-    <ul>
-      {posts.map((post) => (
-        <li>{post.title}</li>
-      ))}
-    </ul>
-  )
+    <div>
+    {posts.map((post)=>{
+      return (
+        <Link href={`/Home/${post.id}`}>
+          <div key={post.id}>
+            <h3>{post.title}</h3>
+            <p>{post.body}</p>
+          </div>
+        </Link>
+      );
+    })}
+    </div>
+  );
 }
 
 export default Home
@@ -24,6 +31,17 @@ export async function getStaticProps() {
     },
   };
 }
+
+// export async function getStaticPaths() {
+//   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+// const posts = await res.json();
+//   const paths = posts.map((post) => ({
+//     params: { id: post.id.toString() },
+//   }));
+
+//   return { paths, fallback: false };
+// }
+
 
 
 
